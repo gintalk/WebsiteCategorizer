@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.Set;
 
 @RestController
 public class WebTextController {
@@ -22,5 +23,10 @@ public class WebTextController {
     @GetMapping("/web-texts")
     ResponseEntity<String> extractWebText(@RequestParam String url) throws IOException {
         return ResponseEntity.ok(service.extractWebText(url));
+    }
+
+    @GetMapping("/web-texts/categories")
+    ResponseEntity<Set<String>> categorizeWeb(@RequestParam String url) throws IOException {
+        return ResponseEntity.ok(service.categorizeWeb(url));
     }
 }
