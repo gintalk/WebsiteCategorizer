@@ -18,6 +18,7 @@ public class Runner {
 
     // A cache that stores the result of website categorization, because parsing website text is expensive
     private final Cache<String, Set<String>> webCategoryCache;
+    private final Cache<String, String> webTextCache;
 
     Runner() {
         webCategoryCache = new Cache2kBuilder<String, Set<String>>() {
@@ -25,12 +26,29 @@ public class Runner {
                 .entryCapacity(1000)
                 .expireAfterWrite(Duration.ofHours(24))     // Cached items live for 24 hours since website content rarely changes
                 .build();
+
+        webTextCache = new Cache2kBuilder<String, String>() {
+        }
+                .entryCapacity(1000)
+                .expireAfterWrite(Duration.ofHours(24))     // Cached items live for 24 hours since website content rarely changes
+                .build();
     }
 
     public String extractWebText(String url) {
+        String cached = webTextCache.get(url);
+        if (!ObjectUtils.isEmpty(cached)) {
+            return cached;
+        }
+
         try {
             Document document = Jsoup.connect(url).get();
-            return _cleanWebText(document.text());
+            String webText = _cleanWebText(document.text());
+
+            if (!ObjectUtils.isEmpty(webText)) {
+                webTextCache.put(url, webText);
+            }
+
+            return webText;
         } catch (IOException e) {
             return "";
         }

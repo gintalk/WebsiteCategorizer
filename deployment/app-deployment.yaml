@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: website-categorizer
+  labels:
+    app: website-categorizer
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: website-categorizer
+  template:
+    metadata:
+      labels:
+        app: website-categorizer
+    spec:
+      containers:
+        - name: website-categorizer
+          image: gintalk/website-categorizer:latest
+          ports:
+            - name: app
+              containerPort: 8080
+              protocol: TCP
