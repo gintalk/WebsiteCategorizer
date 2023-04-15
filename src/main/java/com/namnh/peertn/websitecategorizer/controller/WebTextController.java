@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @RestController
@@ -21,12 +22,12 @@ public class WebTextController {
     }
 
     @GetMapping("/web-texts")
-    ResponseEntity<String> extractWebText(@RequestParam String url) throws IOException {
-        return ResponseEntity.ok(service.extractWebText(url));
+    ResponseEntity<String> extractWebText(@RequestParam String url) {
+        return ResponseEntity.ok(service.extractWebsiteText(url));
     }
 
     @GetMapping("/web-texts/categories")
-    ResponseEntity<Set<String>> categorizeWeb(@RequestParam String url) throws IOException {
-        return ResponseEntity.ok(service.categorizeWeb(url));
+    ResponseEntity<Map<String, Set<String>>> categorizeWeb(@RequestParam(value = "url") List<String> urls) {
+        return ResponseEntity.ok(service.categorizeWebsites(urls));
     }
 }

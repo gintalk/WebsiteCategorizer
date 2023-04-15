@@ -15,9 +15,11 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.cache2k:cache2k-api:2.6.1.Final'
     implementation 'org.jsoup:jsoup:1.15.4'
     implementation 'org.ahocorasick:ahocorasick:0.6.3'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    runtimeOnly 'org.cache2k:cache2k-core:2.6.1.Final'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
