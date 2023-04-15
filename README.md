@@ -2,8 +2,8 @@
 
 This service has two exposed APIs:
 - /web-texts: receives a single parameter called `url` pointing to a website on the Internet, returns the page source
-cleaned of html tags and scripts
-- /web-texts/categories: receives multiple `url` parameters, returns the categories which each URL falls into
+cleaned of html tags and scripts. <b>ANSWER TO PART 1</b>
+- /web-texts/categories: receives multiple `url` parameters, returns the categories which each URL falls into. <b>ANSWER TO PART 2</b>
 
 # Deploying to a local Kubernetes Cluster, with the help of `minikube`, `kubectl` and `docker`
 
